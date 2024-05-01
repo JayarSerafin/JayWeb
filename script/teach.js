@@ -6,6 +6,7 @@ module.exports.config = {
     usage: "teach [question] | [answer]",
     credits: 'Developer',
     cooldown: 3,
+	  hasPrefix: false,
 };
 
 
