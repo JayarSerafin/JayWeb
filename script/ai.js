@@ -4,10 +4,10 @@ module.exports.config = {
  name: "ai",
  version: "1.0.0",
  role: 0,
- aliases: ["Jay"],
- credits: "cliff",
+ aliases: ["ai"],
+ credits: "Jay",
 cooldown: 0,
-hasPrefix: false,
+hasPrefix: true,
 	usage: "",
 };
 
