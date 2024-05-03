@@ -62,4 +62,4 @@ module.exports.run = async ({ event, api }) => {
   } else {
     api.sendMessage("Auto-accept is currently turned off.", event.threadID);
   }
-}
+};
