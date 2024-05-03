@@ -7,7 +7,7 @@ module.exports.config = {
 	cooldown: 5,
 	role: 2,
 	hasPrefix: false,
-	aliases: ["anti-change"],
+	aliases: ["anti-change" , "`"],
 	description: {
 		vi: "Chống đổi thông tin box chat",
 		en: "Anti change info box"
