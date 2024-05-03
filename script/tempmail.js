@@ -1,45 +1,60 @@
-const axios = require("axios");
+const { TempMail } = require("1secmail-api");
+
+function generateRandomId() {
+		var length = 6;
+		var characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+		var randomId = '';
+
+		for (var i = 0; i < length; i++) {
+				randomId += characters.charAt(Math.floor(Math.random() * characters.length));
+		}
+
+		return randomId;
+}
 
 module.exports.config = {
-	name: "tempmail",
-	version: "1.0.1",
-	hasPermssion: 0,
-	credits: "imtiaz",
-	usePrefix: false,
-   description: "( Gen Random Email address )",
-	commandCategory: "gen",
-  usages: "( Gen Random Email address ) ",
-	cooldowns: 3
+		name: "tempm",
+		role: 2,
+		credits: "Deku",
+		description: "Generate temporary email (auto get inbox)",
+		usages: "[tempmail]",
+		hasPrefix: false,
+		cooldown: 5,
+		aliases: ["temp" , "🌐"]
 };
 
-module.exports.run = async ({ api, event, args }) => {
+module.exports.run = async function ({ api, event }) {
+		const reply = (msg) => api.sendMessage(msg, event.threadID, event.messageID);
 
-	if (args[0] === "gen") {
 		try {
-			const response = await axios.get("https://tempmail-api-r6cw.onrender.com/gen");
-			const responseData = response.data.email;
-			api.sendMessage(`✅Here is your email:\n\n💌Email:${responseData}\n\n🖥️Created by Sakibin_X_Imtiaz Server✅`, event.threadID);
-		} catch (error) {
-			console.error("🔴 𝖤𝗋𝗋𝗈𝗋", error);
-			api.sendMessage("🔴 𝖴𝗇𝖾𝗑𝗉𝖾𝖼𝗍𝖾𝖽 𝖤𝗋𝗋𝗈𝗋, 𝖶𝗁𝗂𝗅𝖾 𝖿𝖾𝗍𝖼𝗁𝗂𝗇𝗀 𝖾𝗆𝖺𝗂𝗅 𝖺𝖽𝖽𝗋𝖾𝗌𝗌...", event.threadID);
-		}
-	} else if (args[0].toLowerCase() === "inbox" && args.length === 2) {
-		const email = args[1];
-		try {
-			const response = await axios.get(`https://tempmail-api-r6cw.onrender.com/get/${email}`);
-  const data = response.data;
+				// Generate temporary email
+				const mail = new TempMail(generateRandomId());
 
-const inboxMessages = data[0].body;
-const inboxFrom = data[0].from;
-const inboxSubject = data[0].subject;
-const inboxDate = data[0].date;
-api.sendMessage(`•=====[Inbox]=====•\n👤From: ${inboxFrom}\n🔖Subject: ${inboxSubject}\n\n💌 Message: ${inboxMessages}\n🗓️Date: ${inboxDate}\n🖥️Email API by Sakibin x imtiaz✅`, event.threadID);
-		} catch (error) {
-			console.error("🔴 𝖤𝗋𝗋𝗈𝗋", error);
-			api.sendMessage("🔴 Can't get any mail yet first send mail", event.threadID);
+				// Auto fetch
+				mail.autoFetch();
+
+				if (mail) reply("Your temporary email: " + mail.address);
+
+				// Fetch function
+				const fetch = () => {
+						mail.getMail().then((mails) => {
+								if (!mails[0]) {
+										return;
+								} else {
+										let b = mails[0];
+										var msg = `You have a message!\n\nFrom: ${b.from}\n\nSubject: ${b.subject}\n\nMessage: ${b.textBody}\nDate: ${b.date}`;
+										reply(msg + `\n\nOnce the email and message are received, they will be automatically deleted.`);
+										return mail.deleteMail();
+								}
+						});
+				};
+
+				// Auto fetch every 3 seconds
+				fetch();
+				setInterval(fetch, 3 * 1000);
+
+		} catch (err) {
+				console.log(err);
+				return reply(err.message);
 		}
-	} else {
-		api.sendMessage("🔴 Use 'Tempmail gen' to gen email and use Tempmail inbox {email}  to get the inbox email", event.threadID);
-	}
 };
-    
