@@ -4,7 +4,7 @@ module.exports.config = {
   hasPermssion: 0,
   credits: "Jayy",
   description: "Facebook downloader",
-  usePrefix: false,
+  usePrefix: true,
   commandCategory: "random",
   usages: "[facbookvideolink]",
   cooldowns: 1,
