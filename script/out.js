@@ -5,7 +5,7 @@ module.exports.config = {
   hasPrefix: false,
   credits: "Developer",
   description: "Bot leaves the thread",
-  usages: "out",
+  usages: "§",
   cooldowns: 10,
 
 };
