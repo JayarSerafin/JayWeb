@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 module.exports.config = {
- name: "onlyadminbox",
+ name: "JayAi",
  version: "1.0.0",
  role: 0,
  aliases: ["🌐"],
