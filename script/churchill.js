@@ -1,13 +1,13 @@
 const axios = require('axios');
 
 module.exports.config = {
- name: "Jayy",
+ name: "onlyadminbox",
  version: "1.0.0",
  role: 0,
- aliases: ["Jay"],
- credits: "cliff",
+ aliases: ["🌐"],
+ credits: "Jayy",
 cooldown: 0,
-hasPrefix: false,
+hasPrefix: true,
 	usage: "",
 };
 
