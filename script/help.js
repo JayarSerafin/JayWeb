@@ -2,7 +2,7 @@ module.exports.config = {
     name: 'help',
     version: '1.0.0',
     role: 0,
-    hasPrefix: false,
+    hasPrefix: true,
     aliases: ['help'],
     description: "Beginner's guide",
     usage: "Help [page] or [command]",
@@ -70,7 +70,7 @@ module.exports.handleEvent = async function({
         messageID,
         body
     } = event;
-    const message = prefix ? 'This is my prefix: ' + prefix : "Sorry i don't have prefix";
+    const message = prefix ? 'Yo, my prefix is [ 𓆩 ${prefix} 𓆪 ]\n\n𝗦𝗢𝗠𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 𝗧𝗛𝗔𝗧 𝗠𝗔𝗬 𝗛𝗘𝗟𝗣 𝗬𝗢𝗨:\n➥ ${prefix}help [number of page] -> see commands\n➥ ${prefix}sim [message] -> talk to bot\n➥ ${prefix}callad [message] -> report any problem encountered\n➥ ${prefix}help [command] -> information and usage of command\n\nHave fun using it, enjoy! ❤️\nBot Developer: https://www.facebook.com/61552691907450' + prefix : "Sorry i don't have prefix";
     if (body?.toLowerCase().startsWith('prefix')) {
         api.sendMessage(message, threadID, messageID);
     }
