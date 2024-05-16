@@ -1,10 +1,10 @@
 module.exports.config = {
-	name: "sim",
+	name: "jay",
 	version: "1.0.0",
 	role: 0,
 	aliases: ["sim"],
 	credits: "KENLIEPLAYS",
-	description: "Talk to sim",
+	description: "Talk to jay",
 	cooldown: 0,
 	hasPrefix: false
 };
